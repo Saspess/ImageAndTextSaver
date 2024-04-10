@@ -18,7 +18,7 @@ namespace ITS.Data.Repositories
         {
             if (!Directory.Exists(_fileStorageSettings.ImageFilesLocation))
             {
-                Directory.CreateDirectory(_fileStorageSettings.TextFilesLocation);
+                Directory.CreateDirectory(_fileStorageSettings.ImageFilesLocation);
             }
 
             var filePath = FilePathHelper.GetImageFilePath(_fileStorageSettings.ImageFilesLocation);

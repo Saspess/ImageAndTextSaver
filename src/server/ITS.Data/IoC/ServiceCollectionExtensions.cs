@@ -11,7 +11,7 @@ namespace ITS.Data.IoC
     {
         public static IServiceCollection AddDataLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<FileStorageSettings>(options => configuration.GetSection(SectionNames.FileStorageSettings));
+            services.Configure<FileStorageSettings>(options => configuration.GetSection(SectionNames.FileStorageSettings).Bind(options));
             services.AddScoped<ITextFileDataRepository, TextFileDataRepository>();
             services.AddScoped<IImageFileDataRepository, ImageFileDataRepository>();
             return services;

@@ -1,8 +1,10 @@
-﻿namespace ITS.Business.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ITS.Business.Models
 {
     public class FileDataUploadModel
     {
         public string Text { get; set; }
-        public byte[] ImageData { get; set; }
+        public IFormFile ImageData { get; set; }
     }
 }

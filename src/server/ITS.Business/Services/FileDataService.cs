@@ -41,7 +41,10 @@ namespace ITS.Business.Services
                 throw new ArgumentNullException(nameof(fileDataUploadModel));
             }
 
-            var imageFilePath = await _imageFileDataRepository.UploadImageAsync(fileDataUploadModel.ImageData);
+            using var stream = new MemoryStream();
+            await fileDataUploadModel.ImageData.CopyToAsync(stream);
+
+            var imageFilePath = await _imageFileDataRepository.UploadImageAsync(stream.ToArray());
             var textFileDataModel = new TextFileDataModel()
             {
                 Text = fileDataUploadModel.Text,

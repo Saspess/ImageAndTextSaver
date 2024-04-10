@@ -25,7 +25,7 @@ namespace ITS.ClientApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadDataAsync([FromBody] FileDataUploadModel fileDataUploadModel)
+        public async Task<IActionResult> UploadDataAsync([FromForm] FileDataUploadModel fileDataUploadModel)
         {
             await _fileDataService.UploadFileDataAsync(fileDataUploadModel);
             return Ok();
