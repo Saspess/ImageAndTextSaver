@@ -1,19 +1,16 @@
 ﻿using System.IO;
 using System.Windows;
 using ITS.Models.Models;
-using ITS.ViewModels.ViewModels;
 using Microsoft.Win32;
 
 namespace ITS.ViewModels.Commands
 {
     public class DataUploadCommand : CommandBase
     {
-        private readonly DataUploadViewModel _dataUploadViewModel;
         private readonly DataUploadModel _dataUploadModel;
 
-        public DataUploadCommand(DataUploadViewModel dataUploadViewModel, DataUploadModel dataUploadModel)
+        public DataUploadCommand(DataUploadModel dataUploadModel)
         {
-            _dataUploadViewModel = dataUploadViewModel;
             _dataUploadModel = dataUploadModel;
         }
 
@@ -27,6 +24,7 @@ namespace ITS.ViewModels.Commands
             }
 
             _dataUploadModel.ImageData = await File.ReadAllBytesAsync(openFileDialog.FileName);
+            MessageBox.Show("Image was uploaded");
         }
     }
 }

@@ -9,7 +9,7 @@
 
         public static string GetImageFilePath(string directoryName, string fileName = null)
         {
-            fileName ??= DateTime.UtcNow.ToString("yyyyMMddHHmmssfff");
+            fileName ??= DateTime.UtcNow.ToString("yyyyMMdd_HHmm_ssfff");
             return $"{directoryName}/{fileName}.jpg";
         }
     }

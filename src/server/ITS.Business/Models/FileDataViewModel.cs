@@ -3,6 +3,6 @@
     public class FileDataViewModel
     {
         public string Text { get; set; }
-        public string ImageBase64String { get; set; }
+        public byte[] ImageData { get; set; }
     }
 }

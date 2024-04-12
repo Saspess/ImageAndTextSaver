@@ -1,29 +1,36 @@
 ﻿using System.Net.Http;
-using System.Windows;
+using System.Text.Json;
+using ITS.Models.Models;
+using ITS.Services.Constants;
 using ITS.Services.Services.Contracts;
 
 namespace ITS.Services.Services
 {
     public class MessageService : IMessageService
     {
+        public async Task<List<DataModel>> GetDataAsync()
+        {
+            using var client = new HttpClient();
+            var response = await client.GetAsync($"{ServerLocations.ClientApi}/{ApiEndpoints.FileData}");
+            response.EnsureSuccessStatusCode();
+
+            string content = await response.Content.ReadAsStringAsync();
+            var data = JsonSerializer.Deserialize<List<DataModel>>(content);
+
+            return data;
+        }
+
         public async Task SendDataAsync(string text, byte[] imageData)
         {
-            try
+            using var client = new HttpClient();
+            using var formData = new MultipartFormDataContent()
             {
-                using var client = new HttpClient();
-                using var formData = new MultipartFormDataContent()
-                {
-                    { new StringContent(text), "Text" },
-                    { new ByteArrayContent(imageData), "ImageData", "ImageData" }
-                };
+                { new StringContent(text), ContentNames.Text },
+                { new ByteArrayContent(imageData), ContentNames.Image, ContentFileNames.Image }
+            };
 
-                var response = await client.PostAsync("http://localhost:5185/api/file-data", formData);
-                response.EnsureSuccessStatusCode();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while sending data to the server: " + ex.Message);
-            }
+            var response = await client.PostAsync($"{ServerLocations.ClientApi}/{ApiEndpoints.FileData}", formData);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

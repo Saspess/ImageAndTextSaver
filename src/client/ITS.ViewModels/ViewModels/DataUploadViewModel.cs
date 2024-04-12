@@ -25,7 +25,7 @@ namespace ITS.ViewModels.ViewModels
 
         public DataUploadViewModel(DataUploadModel dataUploadModel)
         {
-            UploadImage = new DataUploadCommand(this, dataUploadModel);
+            UploadImage = new DataUploadCommand(dataUploadModel);
             SendData = new SendDataCommand(this, dataUploadModel);
         }
     }
