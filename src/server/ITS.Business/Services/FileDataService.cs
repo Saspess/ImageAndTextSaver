@@ -23,11 +23,10 @@ namespace ITS.Business.Services
 
             foreach (var textFileDataModel in textFileDataModels)
             {
-                var imageData = await _imageFileDataRepository.ReadImageAsync(textFileDataModel.ImageFilePath);
                 fileDataViewModels.Add(new FileDataViewModel()
                 {
                     Text = textFileDataModel.Text,
-                    ImageBase64String = Convert.ToBase64String(imageData)
+                    ImageData = await _imageFileDataRepository.ReadImageAsync(textFileDataModel.ImageFilePath)
                 });
             }
 
